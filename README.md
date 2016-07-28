@@ -31,6 +31,12 @@ Options:
   -c PATH      Path to .env file. Default: "./.env".
   -f FILENAME  Path to file to follow  [required]
   -d           Use this flag to die on failure while logging
-  -t FLOAT     Follower polling delay. Default: 1 second.
+  -t FLOAT     Follower polling delay (in seconds). Default: 1 second.
   --help       Show this message and exit.
+```
+
+which in practice looks like this:
+
+```shell
+$ pipe-to-slack -f /path/to/file-to-tail
 ```

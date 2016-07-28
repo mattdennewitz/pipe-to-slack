@@ -23,7 +23,7 @@ CWD = os.getcwd()
 @click.option('-d', 'die_hard', is_flag=True, default=False,
               help='Use this flag to die on failure while logging')
 @click.option('-t', 'delay_time', type=click.FLOAT, default=1.0,
-              help='Follower polling delay. Default: 1 second.')
+              help='Follower polling delay (in seconds). Default: 1 second.')
 def main(config_path, follow_fh, die_hard, delay_time):
     dotenv.load_dotenv(config_path)
 
