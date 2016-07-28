@@ -1,6 +1,8 @@
 # pipe-to-slack
 
-Follow a file, pipe it to Slack via incoming webhook
+Follow a file, pipe it to Slack via incoming webhook.
+
+Python 3+ right now.
 
 ## Installation
 
