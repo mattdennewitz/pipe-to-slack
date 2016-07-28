@@ -22,7 +22,9 @@ CWD = os.getcwd()
               help='Path to file to follow')
 @click.option('-d', 'die_hard', is_flag=True, default=False,
               help='Use this flag to die on failure while logging')
-def main(config_path, follow_fh, die_hard):
+@click.option('-t', 'delay_time', type=click.FLOAT, default=1.0,
+              help='Follower polling delay. Default: 1 second.')
+def main(config_path, follow_fh, die_hard, delay_time):
     dotenv.load_dotenv(config_path)
 
     slack_url = os.environ.get('SLACK_LOG_CHANNEL_URL')
@@ -32,7 +34,7 @@ def main(config_path, follow_fh, die_hard):
 
     click.echo('Tailing {}'.format(follow_fh))
 
-    for line in tailer.follow(follow_fh):
+    for line in tailer.follow(follow_fh, delay_time):
         resp = requests.post(slack_url,
                              data=json.dumps({'text': line.decode('utf-8')}),
                              headers={'content-type': 'application/json'})

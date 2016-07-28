@@ -24,6 +24,13 @@ SLACK_LOG_CHANNEL_URL=https://hooks.slack.com/services/...
 
 ### Running
 
-```shell
-$ pipe-to-slack -f /path/to/file-to-tail [-c /path/to/.env]
+```
+Usage: pipe-to-slack [OPTIONS]
+
+Options:
+  -c PATH      Path to .env file. Default: "./.env".
+  -f FILENAME  Path to file to follow  [required]
+  -d           Use this flag to die on failure while logging
+  -t FLOAT     Follower polling delay. Default: 1 second.
+  --help       Show this message and exit.
 ```

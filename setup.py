@@ -13,7 +13,7 @@ pip_reqs = [str(obj.req) for obj in pip_reqs]
 
 setup(
     name = 'statcast-ingest',
-    version = '0.1.0',
+    version = '0.1.1',
     description = (
         'Tail a file, piping to Slack incoming webhook URL'
     ),
