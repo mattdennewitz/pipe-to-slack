@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import json
+import os
+
+import click
+
+import dotenv
+
+import requests
+
+import tailer
+
+
+CWD = os.getcwd()
+
+@click.command()
+@click.option('-c', 'config_path', default=os.path.join(CWD, '.env'),
+              type=click.Path(exists=True),
+              help='Path to .env file. Default: "./.env".')
+@click.option('-f', 'follow_fh', type=click.File('rb'), required=True,
+              help='Path to file to follow')
+@click.option('-d', 'die_hard', is_flag=True, default=False,
+              help='Use this flag to die on failure while logging')
+def main(config_path, follow_fh, die_hard):
+    dotenv.load_dotenv(config_path)
+
+    slack_url = os.environ.get('SLACK_LOG_CHANNEL_URL')
+    if not slack_url:
+        raise click.BadParameter('Please ensure that SLACK_LOG_CHANNEL_URL '
+                                 'env var is set with incoming webhook url')
+
+    click.echo('Tailing {}'.format(follow_fh))
+
+    for line in tailer.follow(follow_fh):
+        resp = requests.post(slack_url,
+                             data=json.dumps({'text': line.decode('utf-8')}),
+                             headers={'content-type': 'application/json'})
+        if die_hard:
+            resp.raise_for_status()
+
+
+if __name__ == '__main__':
+    main()
