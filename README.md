@@ -14,7 +14,7 @@ $ pip install -e git+git@github.com:/mattdennewitz/pipe-to-slack.git#egg=pipe-to
 
 ### Configuration
 
-1. Set up incoming webhook on Slack
+1. [Create an incoming webhook](https://my.slack.com/services/new/incoming-webhook/) on Slack.
 2. Create `.env` file associating your incoming webhook URL with `SLACK_LOG_CHANNEL_URL`
 
 ```shell
